@@ -1,6 +1,7 @@
 close all;
 clear all;
 clc;
+addpath('../');
 
 % Delete previous test files
 if exist('log1.txt', 'file')
