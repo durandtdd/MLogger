@@ -59,3 +59,9 @@ logger.log(MLogger.Info,    'Info message 4');    % Not written
 logger.log(MLogger.Warning, 'Warning message 4');
 logger.log(MLogger.Error,   'Error message 4');
 
+% Test convenience methods
+logger.level = MLogger.All;
+logger.debug('Debug message 5');
+logger.info('Info message 5');
+logger.warning('Warning message 5');
+logger.error('Error message 5');

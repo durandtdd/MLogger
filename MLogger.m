@@ -96,6 +96,34 @@ classdef MLogger < handle
         end
         
         %>>
+        %> @brief Log a debug message
+        %> @param msg Message
+        function debug(self, msg)
+            self.log(MLogger.Debug, msg);
+        end
+        
+        %>>
+        %> @brief Log an info message
+        %> @param msg Message
+        function info(self, msg)
+            self.log(MLogger.Info, msg);
+        end
+        
+        %>>
+        %> @brief Log a warning message
+        %> @param msg Message
+        function warning(self, msg)
+            self.log(MLogger.Warning, msg);
+        end
+        
+        %>>
+        %> @brief Log an wrror message
+        %> @param msg Message
+        function error(self, msg)
+            self.log(MLogger.Error, msg);
+        end
+        
+        %>>
         %> @brief Destroy the logger
         function delete(self)
             fclose(self.file);
