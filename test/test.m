@@ -65,3 +65,10 @@ logger.debug('Debug message 5');
 logger.info('Info message 5');
 logger.warning('Warning message 5');
 logger.error('Error message 5');
+
+% Test getting same file with a different name
+logger = MLogger.get('../test/log1.txt');
+logger.info('Different name');
+
+
+
