@@ -37,9 +37,15 @@ classdef MLogger < handle
     methods(Static = true)
         %>> 
         %> @brief Return logger writing to a file
-        %> @param name File name
+        %> @param name File name or nothing for writing to console
         %> @return Logger
         function logger = get(name)
+            % No file name
+            if nargin == 0
+                logger = MLogger();
+                return;
+            end
+            
             % Loggers map
             persistent loggers;
             if isempty(loggers)
@@ -80,7 +86,7 @@ classdef MLogger < handle
         %> @param level Message level
         %> @param msg Message
         function log(self, level, msg)
-            if level >= self.level
+            if level >= self.level 
                 now = clock();
                 sec = floor(now(6));
                 msec = floor(1000*(now(6)-sec));
@@ -90,8 +96,12 @@ classdef MLogger < handle
                     case self.Info;    lvl = 'INFOR';
                     otherwise;         lvl = 'DEBUG';
                 end
-
-                fprintf(self.file, '[%04u:%02u:%02u:%02u:%02u:%02u:%03u][%s] %s\n', now(1:5), sec, msec, lvl, msg);
+                
+                if self.file == -1 
+                    fprintf('[%04u:%02u:%02u:%02u:%02u:%02u:%03u][%s] %s\n', now(1:5), sec, msec, lvl, msg);
+                else
+                    fprintf(self.file, '[%04u:%02u:%02u:%02u:%02u:%02u:%03u][%s] %s\n', now(1:5), sec, msec, lvl, msg);
+                end
             end
         end
         
@@ -126,7 +136,9 @@ classdef MLogger < handle
         %>>
         %> @brief Destroy the logger
         function delete(self)
-            fclose(self.file);
+            if self.file ~= -1
+                fclose(self.file);
+            end
         end
     end
     
@@ -137,9 +149,11 @@ classdef MLogger < handle
     methods(Access = private)
         %>>
         %> @brief Construct a MLogger
-        %> @param File ID
+        %> @param File ID or nothing to write to console
         function self = MLogger(fid)
-            self.file = fid;
+            if nargin>0
+                self.file = fid;
+            end
         end 
     end
 end

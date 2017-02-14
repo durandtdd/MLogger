@@ -70,5 +70,13 @@ logger.error('Error message 5');
 logger = MLogger.get('../test/log1.txt');
 logger.info('Different name');
 
+% Test writing to console
+logger = MLogger.get();
+logger.level = MLogger.All;
+logger.debug('Debug without file');
+logger.info('Info without file');
+logger.warning('Warning without file');
+logger.error('Error without file');
+
 
 
